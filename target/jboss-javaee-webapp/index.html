@@ -1,0 +1,62 @@
+<html>
+    <head>
+            <script>
+            sayhi();
+            display();
+            
+            function sayhi(){
+	            var requestURL = 'http://localhost:8080/jboss-javaee-webapp/example/web/hi/sandwucgh';
+	            var request = new XMLHttpRequest();
+	            request.open('GET', requestURL);
+	            request.responseType = 'json';
+	            request.send();
+	            request.onload = function () {
+		            var reply = request.response;
+		            var myH1 = document.createElement('h1');
+		            myH1.textContent = reply.result;
+		            document.getElementsByTagName('body')[0].appendChild(myH1);
+	            }
+	            }
+            function display(){
+            	var requestURL = 'http://localhost:8080/jboss-javaee-webapp/example/web/showLesson';
+	            var request = new XMLHttpRequest();
+	            request.open('GET', requestURL);
+	            request.responseType = 'json';
+	            request.send();
+	            request.onload = function () {
+	                let reply = request.response;
+	                let myH1 = document.createElement('h1');
+	                let lesson = reply.result;
+	                myH1.textContent = "lessons : " + lesson;
+	                document.getElementById('les').appendChild(myH1);
+	            }
+                }
+            function displayLesson(){
+            	var requestURL = 'http://localhost:8080/jboss-javaee-webapp/example/web/lesson/' + document.getElementById('lookfor').value;
+	            var request = new XMLHttpRequest();
+	            request.open('GET', requestURL);
+	            request.responseType = 'json';
+	            request.send();
+	            request.onload = function () {
+		            var reply = request.response;
+		            //var myH1 = document.createElement('iframe');
+		            let myp1 = document.createElement('p');
+		            myp1.textContent = document.getElementById('lookfor').value;
+		            document.getElementsByTagName('body')[0].appendChild(myp1);
+	            }
+                }
+            </script>
+    </head>
+    <body>
+   
+   <div id="les">
+   </div>
+   
+   <div id=search>
+   <input type="text" id="lookfor">
+   <input type="submit" id="button" onclick="displayLesson()">
+   </div>
+    </body>
+   
+     
+</html>
